@@ -114,7 +114,7 @@ export default function CinematicEnding({
   chime: (volume: number) => void;
 }) {
   const [phase, setPhase] = useState<Phase>("approach");
-  const [photos, setPhotos] = useState<typeof script.photos>([]);
+  const [photos, setPhotos] = useState<((typeof script.photos)[number] & { ratio: number })[]>([]);
   const [index, setIndex] = useState(0);
   const [love, setLove] = useState(0);
   const blown = useRef(false);
@@ -136,7 +136,9 @@ export default function CinematicEnding({
       if (live)
         setPhotos(
           images.flatMap((img, i) =>
-            img.complete && img.naturalWidth ? [script.photos[i]] : [],
+            img.complete && img.naturalWidth && img.naturalHeight
+              ? [{ ...script.photos[i], ratio: img.naturalWidth / img.naturalHeight }]
+              : [],
           ),
         );
     };
@@ -273,7 +275,7 @@ export default function CinematicEnding({
             </div>
           )}
           {phase === "album" && (
-            <figure key={index} className="polaroid">
+            <figure key={index} className="polaroid" style={{ "--ratio": photos[index].ratio } as CSSProperties}>
               <img
                 src={photos[index].src}
                 alt={`Birlikte bir anımız, ${index + 1}`}
