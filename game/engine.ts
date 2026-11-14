@@ -1,5 +1,5 @@
 import * as Phaser from "phaser";
-import { levels } from "./config";
+import { ending, levels } from "./config";
 
 export type Action = "left" | "right" | "jump";
 export type Sound = "heart" | "jump" | "checkpoint" | "finish";
@@ -401,7 +401,19 @@ export function createGame(parent: HTMLElement, events: GameEvents) {
         clearInput();
         this.player.setAngle(0).setVelocity(0);
         this.physics.pause();
-        events.onSound?.("finish");
+        if (levelIndex === levels.length - 1) {
+          this.input.keyboard?.resetKeys();
+          if (this.input.keyboard) {
+            this.input.keyboard.enabled = false;
+            this.input.keyboard.removeAllKeys(true, true);
+          }
+          const camera = this.cameras.main;
+          camera.stopFollow();
+          camera.pan(this.player.x, this.player.y, ending.ms.camera, "Sine.easeInOut");
+          camera.zoomTo(1.16, ending.ms.camera, "Sine.easeInOut");
+        } else {
+          events.onSound?.("finish");
+        }
         events.onLevelEnd(levelIndex);
       }
     }

@@ -1,6 +1,5 @@
 export const gameText = {
   intro: "Bir prensesin doğum gününe yetişmemiz lazım! 💗",
-  final: "İyi ki doğdun aşkım! ❤️",
 };
 
 export const levels = [
@@ -9,7 +8,6 @@ export const levels = [
     title: "Seninle başlayan bahar",
     message:
       "Sen gülünce en sıradan gün bile çiçek açıyor. İyi ki yollarımız kesişmiş, sevgilim.",
-    photo: "/memories/1.jpg",
     width: 1480,
     gaps: [
       [440, 496],
@@ -30,7 +28,6 @@ export const levels = [
     title: "El ele, yan yana",
     message:
       "Birlikte kaybolduğumuz sokakları, gülmekten bitiremediğimiz cümleleri seviyorum. En güzel anılarımda hep sen varsın.",
-    photo: "/memories/2.jpg",
     width: 1620,
     gaps: [
       [348, 414],
@@ -53,7 +50,6 @@ export const levels = [
     title: "Dileğini tut",
     message:
       "Bugün mumlarını üflerken tuttuğun bütün dilekler gerçek olsun. Benim en güzel dileğim zaten yanımda. Seni çok seviyorum!",
-    photo: "/memories/3.jpg",
     width: 1730,
     gaps: [
       [350, 420],
@@ -73,3 +69,44 @@ export const levels = [
     checkpoint: 966,
   },
 ];
+
+export const ending = {
+  wish: "Bir dilek tut aşkım... ❤️",
+  blow: "Mumları üfle 🎂",
+  title: "İYİ Kİ DOĞDUN AŞKIM! ❤️",
+  lines: [
+    "Seninle geçirdiğim her an benim için çok özel.",
+    "Hayatıma kattığın bütün güzellikler için teşekkür ederim.",
+    "İyi ki varsın, iyi ki benimlesin.",
+    "Seni çok seviyorum. ❤️",
+  ],
+  goodbye: "Bu oyunun sonuna geldik...",
+  story: "Ama bizim hikâyemiz daha yeni başlıyor. ❤️",
+  note: "Nice güzel yaşlarına birlikte...",
+  love: "❤️ Seni Seviyorum",
+  reply: "Ben de seni çok seviyorum aşkım! ❤️",
+  replay: "🔄 Tekrar Oyna",
+  photos: [
+    { src: "/memories/1.jpg", compliment: "Paylaştığımız ilk fotoğraf... Nasıl unutulur ki?" },
+    { src: "/memories/2.jpg", compliment: "Her öptüğünde aynı heyecan aynı kalp atışı..." },
+    { src: "/memories/3.jpg", compliment: "Çok güzel gülüyosun ya.." },
+    { src: "/memories/4.jpg", compliment: "Sen gülerken ben her şeyimi unutuyorum." },
+    { src: "/memories/5.jpg", compliment: "İyi ki doğdun, bakmaya doyamadığım sevgilim." },
+  ],
+  sound: { file: "", volume: 0.5 }, // İsteğe bağlı: /audio/kutlama.mp3
+  ms: {
+    camera: 950,
+    reveal: 650,
+    celebration: 1700,
+    line: 1350,
+    read: 3200,
+    photo: 4400,
+    photoLoadLimit: 6000,
+    lastLine: 1300,
+    hearts: 2100,
+    flicker: 550,
+    twinkle: 3000,
+    float: 8000,
+    cloud: 18000,
+  },
+};

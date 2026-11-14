@@ -1,0 +1,371 @@
+.cinematic {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  overscroll-behavior: contain;
+  text-align: center;
+  background: radial-gradient(
+    ellipse at 50% 46%,
+    #fff3de 0%,
+    #ffe1e1 42%,
+    #ebcadc 77%,
+    #d1bddb
+  );
+  color: #51374f;
+}
+.cinematic.phase-approach {
+  pointer-events: auto;
+  background: #3c264f;
+  animation: cin-dim var(--camera) ease-out both;
+}
+.wish-sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  animation: cin-show var(--reveal) both;
+}
+.wish-sky:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 19%;
+  background: url("/art/hills.png") center 72%/100% auto;
+  image-rendering: pixelated;
+  opacity: 0.35;
+  mask-image: linear-gradient(transparent, #000);
+  -webkit-mask-image: linear-gradient(transparent, #000);
+}
+.wish-sky i {
+  position: absolute;
+  width: 21%;
+  height: 9%;
+  background: #fff7f0;
+  opacity: 0.63;
+  clip-path: polygon(
+    0 66%,
+    12% 66%,
+    12% 35%,
+    26% 35%,
+    26% 15%,
+    50% 15%,
+    50% 0,
+    67% 0,
+    67% 36%,
+    82% 36%,
+    82% 65%,
+    100% 65%,
+    100% 100%,
+    0 100%
+  );
+  top: 20%;
+  left: 1%;
+  animation: cin-cloud var(--cloud) ease-in-out infinite alternate;
+}
+.wish-sky i:nth-child(2) {
+  left: 78%;
+  top: 50%;
+  animation-direction: alternate-reverse;
+}
+.wish-sky b {
+  position: absolute;
+  color: #fff7d7;
+  text-shadow: 1px 1px #c49aad;
+}
+.wish-sky .glint {
+  animation: cin-glint var(--twinkle) ease-in-out infinite alternate;
+}
+.wish-sky .floating {
+  color: #e798b3;
+  animation: cin-float var(--float) ease-in-out infinite alternate;
+}
+.wish-content {
+  max-width: min(94%, 660px);
+  padding: 10px;
+  animation: cin-rise var(--reveal) both;
+}
+.wish-content h2 {
+  font: 700 clamp(22px, 3.6vw, 45px)/1.09 var(--pixel);
+  text-wrap: balance;
+  margin: 6px 0 14px;
+  color: #754665;
+  text-shadow:
+    1px 2px #fff3db,
+    0 0 16px #fff9e6;
+}
+.wish-content p {
+  margin: 7px 0;
+  line-height: 1.45;
+  font-size: clamp(14px, 1.5vw, 18px);
+}
+.wish-cake {
+  display: block;
+  width: clamp(100px, 24vw, 226px);
+  max-height: 27vh;
+  margin: auto;
+  filter: drop-shadow(0 0 10px #fff5cd);
+  animation: cin-rise var(--reveal) ease-out both;
+}
+.flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: cin-flame var(--flicker) infinite alternate ease-in-out;
+}
+.wish-content .primary {
+  margin: 0 auto 5px;
+  width: max-content;
+  max-width: 100%;
+  font-size: clamp(16px, 2vw, 22px);
+}
+.button-space {
+  height: 48px;
+}
+.wish-flash,
+.wish-shower {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wish-flash {
+  background: #fff4dd;
+  animation: cin-flash var(--reveal) forwards;
+}
+.wish-shower i {
+  position: absolute;
+  bottom: 10%;
+  font-style: normal;
+  font-size: clamp(16px, 2vw, 26px);
+  animation: cin-particle var(--hearts) ease-out both;
+}
+.phase-burst .wish-shower i:nth-child(3n + 1) {
+  top: 10%;
+  bottom: auto;
+  animation-name: cin-confetti;
+}
+.wish-letter p,
+.after-pause {
+  animation: cin-rise var(--reveal) both;
+}
+.after-pause {
+  animation-delay: var(--lastLine);
+}
+.wish-letter h2 {
+  animation: cin-title var(--reveal) both;
+}
+.polaroid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 78%;
+  height: 78%;
+  margin: 0;
+  padding: 9px 9px 15px;
+  border: 2px solid #ac8698;
+  background: #fffcf5;
+  box-shadow: 4px 5px #a57f982d;
+  animation: cin-photo var(--photo) ease-in-out both;
+}
+.polaroid img {
+  min-height: 0;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.heart-seal {
+  color: #d9769b;
+}
+.polaroid figcaption {
+  position: absolute;
+  inset: auto 9px 15px;
+  padding: 24px 8px 8px;
+  background: linear-gradient(transparent, #382235da 68%);
+  color: #fff8ef;
+  font: 700 clamp(14px, 1.4vw, 18px)/1.35 "DM Sans", sans-serif;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow: 0 1px 2px #382235;
+}
+.heart-seal {
+  font: 700 30px var(--pixel);
+  text-shadow: 2px 2px #855573;
+}
+.ending-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 17px 0 7px;
+}
+.ending-actions .primary {
+  margin: 0;
+}
+.love-reply {
+  min-height: 1.5em;
+  color: #8c3e64;
+  font-weight: bold;
+  margin-top: 10px;
+}
+@keyframes cin-dim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.55;
+  }
+}
+@keyframes cin-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes cin-rise {
+  from {
+    opacity: 0;
+    transform: translateY(13px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes cin-title {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes cin-cloud {
+  to {
+    transform: translateX(25%);
+  }
+}
+@keyframes cin-glint {
+  to {
+    opacity: 0.35;
+    transform: scale(0.65);
+  }
+}
+@keyframes cin-float {
+  to {
+    transform: translate(9px, -20px);
+  }
+}
+@keyframes cin-flame {
+  to {
+    transform: skewX(9deg) scaleY(0.84);
+  }
+}
+@keyframes cin-flash {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes cin-particle {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), -42vh) rotate(18deg);
+  }
+}
+@keyframes cin-confetti {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), 48vh) rotate(160deg);
+  }
+}
+@keyframes cin-photo {
+  0%,
+  100% {
+    opacity: 0;
+    transform: rotate(-2deg) translateY(6px);
+  }
+  16%,
+  84% {
+    opacity: 1;
+    transform: rotate(1deg);
+  }
+}
+@media (max-height: 550px) and (orientation: landscape) {
+  .wish-cake {
+    width: 128px;
+    max-height: 28svh;
+  }
+  .wish-content {
+    padding: 5px;
+  }
+  .wish-content h2 {
+    font-size: clamp(20px, 6.8vh, 30px);
+    margin: 3px 0 8px;
+  }
+  .heart-seal {
+    font-size: 20px;
+  }
+  .wish-content p {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  .ending-actions {
+    margin: 8px 0;
+  }
+  .love-reply {
+    margin-top: 5px;
+  }
+  .wish-content .primary {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic *,
+  .cinematic {
+    animation-timing-function: linear !important;
+  }
+  .wish-cake,
+  .wish-sky b,
+  .wish-sky i,
+  .flame {
+    animation: none !important;
+  }
+  .wish-content,
+  .wish-letter h2,
+  .wish-letter p,
+  .after-pause {
+    animation-name: cin-show;
+  }
+  .wish-shower,
+  .wish-flash {
+    display: none;
+  }
+}

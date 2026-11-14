@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Pixel from "./Pixel";
+import CinematicEnding from "./CinematicEnding";
 import { levels, gameText } from "../game/config";
 type Mode = "menu" | "loading" | "playing" | "memory" | "final" | "error";
 type Engine = ReturnType<typeof import("../game/engine").createGame>;
@@ -9,7 +10,6 @@ export default function Home() {
     [sound, setSound] = useState(true),
     [level, setLevel] = useState(0),
     [hearts, setHearts] = useState(0),
-    [photoFailed, setPhotoFailed] = useState(false),
     [checkpoint, setCheckpoint] = useState(false);
   const host = useRef<HTMLDivElement>(null),
     engine = useRef<Engine | null>(null),
@@ -28,7 +28,7 @@ export default function Home() {
       void audio.current.resume().catch(() => {});
     } catch {}
   }
-  function tone(kind: string) {
+  function tone(kind: string, volume = 1) {
     const ctx = audio.current;
     if (!ctx || !enabled.current) return;
     const notes =
@@ -45,7 +45,7 @@ export default function Home() {
         t = ctx.currentTime + i * 0.08;
       osc.type = "triangle";
       osc.frequency.setValueAtTime(f, t);
-      gain.gain.setValueAtTime(0.055, t);
+      gain.gain.setValueAtTime(Math.max(0.0001, 0.055 * volume), t);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
       osc.connect(gain);
       gain.connect(ctx.destination);
@@ -62,7 +62,6 @@ export default function Home() {
     setLevel(0);
     setHearts(0);
     setCheckpoint(false);
-    setPhotoFailed(false);
     setMode("loading");
     try {
       const { createGame } = await import("../game/engine");
@@ -78,7 +77,6 @@ export default function Home() {
         },
         onLevelEnd: (i) => {
           setLevel(i);
-          setPhotoFailed(false);
           setMode(i === levels.length - 1 ? "final" : "memory");
         },
       });
@@ -103,16 +101,6 @@ export default function Home() {
       void audio.current?.close();
     };
   }, []);
-  const memoryPhoto = photoFailed ? (
-    <div className="memoryArt" />
-  ) : (
-    <img
-      className="memoryPhoto"
-      src={levels[level].photo}
-      alt={levels[level].title}
-      onError={() => setPhotoFailed(true)}
-    />
-  );
   const menu = mode === "menu" || mode === "error";
   return (
     <>
@@ -236,7 +224,6 @@ export default function Home() {
                   aria-modal="true"
                   aria-label={levels[level].title}
                 >
-                  {memoryPhoto}
                   <h2>{levels[level].title}</h2>
                   <p>{levels[level].message}</p>
                   <button autoFocus className="primary" onClick={advance}>
@@ -246,30 +233,12 @@ export default function Home() {
               </div>
             )}
             {mode === "final" && (
-              <div className="overlay finale">
-                <div className="confetti" aria-hidden="true">
-                  {Array.from({ length: 36 }, (_, i) => (
-                    <i
-                      key={i}
-                      style={{
-                        left: ((i * 37) % 100) + "%",
-                        animationDelay: -(i % 9) * 0.43 + "s",
-                        color: ["#ed7292", "#b98bdf", "#f7c259"][i % 3],
-                      }}
-                    >
-                      {i % 3 ? "▪" : "♥"}
-                    </i>
-                  ))}
-                </div>
-                <article className="card">
-                  {memoryPhoto}
-                  <h2>{gameText.final}</h2>
-                  <p>{levels[level].message}</p>
-                  <button className="primary" onClick={start}>
-                    Tekrar oyna
-                  </button>
-                </article>
-              </div>
+              <CinematicEnding
+                sound={sound}
+                onReplay={start}
+                unlock={unlock}
+                chime={(volume) => tone("finish", volume)}
+              />
             )}
           </div>
           <div className="status">

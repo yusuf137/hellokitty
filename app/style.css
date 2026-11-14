@@ -352,33 +352,6 @@ h1 {
   margin: 0 auto 5px;
   font-size: 18px;
 }
-.memoryPhoto,
-.memoryArt {
-  width: 100%;
-  height: clamp(65px, 13vh, 135px);
-  object-fit: cover;
-  border: 2px solid var(--ink);
-  background: url("/art/scene.png") center/cover;
-  image-rendering: pixelated;
-}
-.confetti {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-.confetti i {
-  position: absolute;
-  animation: drift 3.5s linear infinite;
-  font-size: 23px;
-}
-@keyframes drift {
-  from {
-    transform: translateY(-30px) rotate(0);
-  }
-  to {
-    transform: translateY(65vh) rotate(220deg);
-  }
-}
 .toast {
   position: absolute;
   top: 10px;
@@ -547,16 +520,8 @@ h1 {
     margin: 5px 0;
     font-size: 12px;
   }
-  .memoryPhoto,
-  .memoryArt {
-    height: 55px;
-  }
 }
-@media (prefers-reduced-motion: reduce) {
-  .confetti i {
-    animation-duration: 9s;
-  }
-}
+
 
 .landscape {
   mask-image: linear-gradient(to bottom, transparent, #000 15%);
